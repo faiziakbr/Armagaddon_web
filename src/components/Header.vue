@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar app :color="'#000'" flat>
+    <v-toolbar app :color="'#000'">
       <img
         v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
         :src="require('../assets/app_logo.png')"
@@ -23,7 +23,7 @@
           </v-btn>
         </template>
         <v-list style="max-height: 300px;width:350px; background-color:transparent;">
-          <v-flex v-for="(item, index) in notifications" :key="index" style="background-color:#fff">
+          <v-flex v-for="(item, index) in notifications" :key="index" class="secondary">
             <ItemNotification :itemNotification="item"></ItemNotification>
             <v-divider :key="index"></v-divider>
           </v-flex>
@@ -42,7 +42,7 @@
       :permanent="$vuetify.breakpoint.lg || $vuetify.breakpoint.xl "
       :temporary="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
     >
-      <v-toolbar flat color="#000">
+      <v-toolbar color="#000">
         <v-list>
           <v-list-tile>
             <v-list-tile-title class="title" style="color:#f3bf2e">ARMAGEDDON</v-list-tile-title>
@@ -117,9 +117,10 @@ export default {
   },
   methods: {
     menuClick(value) {
+      if (value.id == 1) this.$router.push("signals");
       if (value.id == 2) this.$router.push("referrals");
       if (value.id == 3) this.$router.push("earnings");
-      if (value.id == 1) this.$router.push("signals");
+      if(value.id == 4) this.$router.push("payment_methods");
     },
     // goToNotifications() {
     //   this.$router.push("notifications");

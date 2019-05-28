@@ -1,5 +1,5 @@
 <template>
-  <div style="padding:10px; background-color:#fff">
+  <div style="padding:10px;" class="secondary">
     <v-list style="height:350px" class="scroll-y" >
       <v-flex v-for="(item, index) in signals" :key="index" xs12 id="myChat">
         <p>{{item.message}}</p>

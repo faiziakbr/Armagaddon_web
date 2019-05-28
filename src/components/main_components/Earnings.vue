@@ -7,8 +7,8 @@
     </v-card>
     <v-card-title>Transactions</v-card-title>
     <v-layout column>
-      <v-flex v-for="item in transactions" :key="item.id" xs12 class="mb-3 py-2 px-2">
-        <item-transaction style="height: 100%" :itemTransaction="item"></item-transaction>
+      <v-flex v-for="item in transactions" :key="item.id" xs12 class=" py-2 px-2">
+        <item-transaction :itemTransaction="item"></item-transaction>
       </v-flex>
     </v-layout>
     <app-loader :showDialog="loading"></app-loader>

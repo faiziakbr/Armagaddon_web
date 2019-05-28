@@ -65,6 +65,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path:'/payment_methods',
+      name: 'payment_methods',
+      component: () => import('./components/main_components/PaymentMethods.vue'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })

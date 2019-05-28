@@ -7,10 +7,14 @@ import Vuetify from 'vuetify'
 import Axios from 'axios'
 import firebase from 'firebase'
 
+
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
   iconfont: 'mdi' // 'md' || 'mdi' || 'fa' || 'fa4'
 });
+
+
+
 
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token');
