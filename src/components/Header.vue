@@ -64,8 +64,20 @@
         </v-list>
       </v-toolbar>
 
-      <v-list>
-        <v-list-tile v-for="item in items" :key="item.title" @click="menuClick(item)">
+      <v-list v-if="$vuetify.breakpoint.mdAndUp">
+        <v-list-tile v-for="item in itemsOnLargeScreen" :key="item.title" @click="menuClick(item)">
+          <v-list-tile-action>
+            <v-icon style="color:#f3bf2e">{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list v-else>
+        <v-list-tile v-for="item in itemsOnSmallScreen" :key="item.title" @click="menuClick(item)">
           <v-list-tile-action>
             <v-icon style="color:#f3bf2e">{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -97,8 +109,13 @@ export default {
       user: {},
       image: "",
       showEditDialog: false,
-      items: [
+      itemsOnSmallScreen: [
         { id: 1, title: "Signals", icon: "swap_vert" },
+        { id: 2, title: "Referrals", icon: "people" },
+        { id: 3, title: "Earnings", icon: "attach_money" },
+        { id: 4, title: "Payment Methods", icon: "account_balance" }
+      ],
+      itemsOnLargeScreen:[
         { id: 2, title: "Referrals", icon: "people" },
         { id: 3, title: "Earnings", icon: "attach_money" },
         { id: 4, title: "Payment Methods", icon: "account_balance" }
@@ -106,9 +123,10 @@ export default {
     };
   },
   mounted() {
+
     this.user = JSON.parse(localStorage.getItem("user"));
     this.image =
-      "http://www.vacayplanet.com/ArmageddonApi/public/api/" +
+      "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
       this.user.profile_pic_url;
     axios({
       method: "GET",
@@ -147,7 +165,7 @@ export default {
       this.image = person;
       event.target.src = this.image;
     }
-  },
+  }
 };
 </script>
 

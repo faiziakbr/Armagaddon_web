@@ -39,7 +39,7 @@ export default {
     };
   },
   mounted(){
-    this.image = "http://www.vacayplanet.com/ArmageddonApi/public/api/"+this.referral.customer.profile_pic_url
+    this.image = "http://www.vacayplanet.com/ArmageddonApi/public/appImages/"+this.referral.customer.profile_pic_url
   }
 };
 </script>

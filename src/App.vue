@@ -13,7 +13,7 @@
 
     <div
       style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; background-color:#000; border-radius:10px"
-      v-if="isLoggedIn"
+      v-if="isLoggedIn  && $vuetify.breakpoint.mdAndUp"
       v-show="!showSignals"
     >
       <v-card>

@@ -1,7 +1,7 @@
 <template>
-  <v-card class="my-2 mr-2">
+  <v-card class="my-2 mr-2" style="background-color:#303030">
     <p class="text-xs-center" v-if="fomattedPreviousDate != formattedDate">{{formattedDate}}</p>
-    <p style="background-color:#c0c0c0; padding:5px; border-radius:10px">{{item.message}}</p>
+    <h4 style="background-color:#c0c0c0; padding:5px; border-radius:10px; color:#000">{{item.message}}</h4>
   </v-card>
 </template>
 
