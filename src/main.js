@@ -13,7 +13,7 @@ Vue.use(Vuetify, {
   iconfont: 'mdi' // 'md' || 'mdi' || 'fa' || 'fa4'
 });
 
-
+Vue.use(require("vue-moment"));
 
 
 Vue.prototype.$http = Axios;

@@ -42,27 +42,27 @@
       :permanent="$vuetify.breakpoint.lg || $vuetify.breakpoint.xl "
       :temporary="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
     >
-      <v-toolbar color="#000">
+      <!-- <v-toolbar color="#000">
         <v-list>
           <v-list-tile>
             <v-list-tile-title class="title" style="color:#f3bf2e">ARMAGEDDON</v-list-tile-title>
           </v-list-tile>
         </v-list>
-      </v-toolbar>
+      </v-toolbar>-->
 
-      <!-- <v-toolbar flat class="#000000">
+      <v-toolbar flat :color="'#000'" @click="openEditDialog">
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img src="https://randomuser.me/api/portraits/men/85.jpg">
+              <img :src="image" @error="imageLoadError">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>John Leider</v-list-tile-title>
+              <v-list-tile-title>{{user.first_name}} {{user.last_name}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-      </v-toolbar>-->
+      </v-toolbar>
 
       <v-list>
         <v-list-tile v-for="item in items" :key="item.title" @click="menuClick(item)">
@@ -75,22 +75,28 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-
-      <!-- <v-card-text>Hello</v-card-text> -->
     </v-navigation-drawer>
+    <edit-profile-dialog :openDialog="showEditDialog"></edit-profile-dialog>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import ItemNotification from "../components/custom_components/ItemNotification.vue";
+import person from "../assets/person.png";
+import EditProfileDialog from "../components/main_components/EditProfileDialog.vue";
+
 export default {
   components: {
-    ItemNotification
+    ItemNotification,
+    EditProfileDialog
   },
   data() {
     return {
       notifications: [],
+      user: {},
+      image: "",
+      showEditDialog: false,
       items: [
         { id: 1, title: "Signals", icon: "swap_vert" },
         { id: 2, title: "Referrals", icon: "people" },
@@ -100,11 +106,15 @@ export default {
     };
   },
   mounted() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.image =
+      "http://www.vacayplanet.com/ArmageddonApi/public/api/" +
+      this.user.profile_pic_url;
     axios({
       method: "GET",
       url:
         "http://www.vacayplanet.com/ArmageddonApi/public/api/notifications/" +
-        localStorage.getItem("user_id")
+        this.user.id
     })
       .then(response => {
         this.notifications = response.data;
@@ -120,11 +130,11 @@ export default {
       if (value.id == 1) this.$router.push("signals");
       if (value.id == 2) this.$router.push("referrals");
       if (value.id == 3) this.$router.push("earnings");
-      if(value.id == 4) this.$router.push("payment_methods");
+      if (value.id == 4) this.$router.push("payment_methods");
     },
-    // goToNotifications() {
-    //   this.$router.push("notifications");
-    // },
+    openEditDialog() {
+      this.showEditDialog = true;
+    },
     logout() {
       this.$store
         .dispatch("logout")
@@ -132,8 +142,12 @@ export default {
           this.$router.push("/login");
         })
         .catch(err => console.log(err));
+    },
+    imageLoadError(event) {
+      this.image = person;
+      event.target.src = this.image;
     }
-  }
+  },
 };
 </script>
 

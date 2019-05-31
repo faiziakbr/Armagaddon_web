@@ -12,20 +12,22 @@
     </v-content>
 
     <div
-      style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; background-color:#000"
+      style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; background-color:#000; border-radius:10px"
       v-if="isLoggedIn"
-      v-show="showSignals"
+      v-show="!showSignals"
     >
-      <v-layout align-content-space-between align-center>
-        <v-flex>
-          <h1 style="color:#fff; padding-left:10px" class="headline">Signals</h1>
-        </v-flex>
-        <v-flex class="text-xs-right">
-          <v-btn flat icon color="white" @click="toggleSignals">
-            <v-icon dark>cancel</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
+      <v-card>
+        <v-layout align-content-space-between align-center>
+          <v-flex>
+            <h1 style="color:#fff; padding-left:10px" class="headline">Signals</h1>
+          </v-flex>
+          <v-flex class="text-xs-right">
+            <v-btn flat icon color="white" @click="toggleSignals">
+              <v-icon dark>cancel</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </v-card>
 
       <v-divider></v-divider>
       <app-signal-dialog></app-signal-dialog>
@@ -34,8 +36,8 @@
 
     <div
       style="position:fixed; bottom: 50px; right:10px; z-index: 9999;"
-      v-if="isLoggedIn"
-      v-show="!showSignals"
+      v-if="isLoggedIn && $vuetify.breakpoint.mdAndUp"
+      v-show="showSignals"
     >
       <v-btn absolute dark fab top right color="#f3bf2e" @click="toggleSignals">
         <v-icon>swap_vert</v-icon>
@@ -113,3 +115,28 @@ export default {
   }
 };
 </script>
+
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #f3bf2e; 
+}
+</style>
+

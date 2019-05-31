@@ -24,9 +24,10 @@ export default {
     };
   },
   mounted() {
+    let userId = JSON.parse(localStorage.getItem('user'));
     axios({
       method: "GET",
-      url: "http://www.vacayplanet.com/ArmageddonApi/public/api/referrals/"+localStorage.getItem('user_id')
+      url: "http://www.vacayplanet.com/ArmageddonApi/public/api/referrals/"+userId.id
     })
       .then(response => {
         this.referrals = response.data.referrals;

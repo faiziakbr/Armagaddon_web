@@ -33,12 +33,12 @@ export default {
     };
   },
   mounted() {
+    let user = JSON.parse(localStorage.getItem('user'));
     axios({
       method: "GET",
-      url: "http://www.vacayplanet.com/ArmageddonApi/public/api/earnings/"+localStorage.getItem('user_id')
+      url: "http://www.vacayplanet.com/ArmageddonApi/public/api/earnings/"+user.id
     })
       .then(response => {
-        console.log(response);  
         this.earnings = response.data.earnings;
         this.transactions = response.data.transactions;
         this.loading = false;
