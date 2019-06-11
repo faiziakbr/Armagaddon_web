@@ -14,7 +14,7 @@
     <div
       style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; background-color:#000; border-radius:10px"
       v-if="isLoggedIn  && $vuetify.breakpoint.mdAndUp"
-      v-show="!showSignals"
+      v-show="showSignals"
     >
       <v-card>
         <v-layout align-content-space-between align-center>
@@ -37,7 +37,7 @@
     <div
       style="position:fixed; bottom: 50px; right:10px; z-index: 9999;"
       v-if="isLoggedIn && $vuetify.breakpoint.mdAndUp"
-      v-show="showSignals"
+      v-show="!showSignals"
     >
       <v-btn absolute dark fab top right color="#f3bf2e" @click="toggleSignals">
         <v-icon>swap_vert</v-icon>
@@ -89,14 +89,6 @@ export default {
       });
     });
   },
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    },
-    isLoading: function() {
-      return this.$store.getters.authStatus;
-    }
-  },
   methods: {
     logout: function() {
       this.$store.dispatch("logout").then(() => {
@@ -105,7 +97,15 @@ export default {
     },
     toggleSignals() {
       this.showSignals = !this.showSignals;
-    }
+    },
+  },
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    isLoading: function() {
+      return this.$store.getters.authStatus;
+    },
   },
   watch: {
     isLoading(value) {
@@ -124,19 +124,19 @@ export default {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: gray; 
+  background: gray;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #f3bf2e; 
+  background: #f3bf2e;
 }
 </style>
 

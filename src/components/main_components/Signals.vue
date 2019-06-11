@@ -10,6 +10,7 @@
 <script>
 import { signalRefrance } from "../../main.js";
 import ItemSignal from "../custom_components/ItemSignal.vue";
+import moment from "moment";
 
 export default {
   components: {
@@ -18,15 +19,41 @@ export default {
   data() {
     return {
       loading: true,
-      signals: []
+      signals: [],
+      offsetTop: 0
     };
   },
   mounted() {
-    signalRefrance.on("value", snapshot => {
-      snapshot.forEach(data => {
-        this.signals.push(data.val());
+    this.fetchSignals();
+  },
+  methods: {
+    fetchSignals() {
+      let temp = [];
+      signalRefrance.on("value", snapshot => {
+        snapshot.forEach(data => {
+          temp.push(data.val());
+        });
+        temp.sort(
+          (a, b) =>
+            new Date(moment(a.date).format("MM/DD/YYYY hh:mm:ss")) -
+            new Date(moment(b.date).format("MM/DD/YYYY hh:mm:ss"))
+        );
       });
-    });
+      this.signals = temp;
+      this.scrollToBottom();
+    },
+    scrollToBottom() {
+      this.$vuetify.goTo(9999, this.options);
+    }
+  },
+  computed: {
+    options() {
+      return {
+        duration: 1000,
+        offset: 0,
+        easing: "easeInOutCubic"
+      };
+    }
   }
 };
 </script>

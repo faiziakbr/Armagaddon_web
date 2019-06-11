@@ -1,21 +1,10 @@
 <template>
-  <!-- <div>
-    <form class="login" @submit.prevent="login">
-      <h1>Sign in</h1>
-      <label>Email</label>
-      <input required v-model="email" type="email" placeholder="Name">
-      <label>Password</label>
-      <input required v-model="password" type="password" placeholder="Password">
-      <hr>
-      <button type="submit">Login</button>
-    </form>
-  </div>-->
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-toolbar-title>Login</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-form v-model="valid">
@@ -38,7 +27,6 @@
                 required
                 :rules="passwordRules"
               ></v-text-field>
-          
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -55,7 +43,6 @@
 import axios from "axios";
 
 export default {
-  
   data() {
     return {
       valid: false,
@@ -82,7 +69,7 @@ export default {
         })
         .catch(err => console.log(err));
     }
-  },
+  }
 };
 </script>
 

@@ -31,6 +31,7 @@ export default new Vuex.Store({
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit("auth_request");
+
         axios({
           url: "http://www.vacayplanet.com/ArmageddonApi/public/api/login",
           data: user,
@@ -48,8 +49,12 @@ export default new Vuex.Store({
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
             axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-            commit("auth_success", token, user);
-            resolve(resp);
+            if (user.status != "active") {
+              this.logout();
+            } else {
+              commit("auth_success", token, user);
+              resolve(resp);
+            }
           })
           .catch(err => {
             commit("auth_error");
@@ -62,15 +67,17 @@ export default new Vuex.Store({
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit("auth_request");
+        console.log(user);
         axios({
-          url: "http://localhost:3000/register",
+          url: "http://www.vacayplanet.com/ArmageddonApi/public/api/register",
           data: user,
           method: "POST"
         })
           .then(resp => {
             const token = resp.data.token;
-            const user = resp.data.customer;
-            localStorage.setItem("token", token);
+            console.log(resp.data);
+            // const user = resp.data.customer;
+            // localStorage.setItem("token", token);
             // localStorage.setItem('user',JSON.stringify(user)),
             axios.defaults.headers.common["Authorization"] = token;
             commit("auth_success", token, user);

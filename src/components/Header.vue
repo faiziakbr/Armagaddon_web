@@ -1,17 +1,21 @@
 <template>
   <div>
     <v-toolbar app :color="'#000'">
-      <img
-        v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
-        :src="require('../assets/app_logo.png')"
-        height="30"
-      >
-      <img
-        v-if="$vuetify.breakpoint.sm || $vuetify.breakpoint.md"
-        class="ml-3"
-        :src="require('../assets/app_logo.png')"
-        height="20"
-      >
+      <!-- <v-avatar >
+        <img
+          v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
+          :src="image"
+          @error="imageLoadError"
+        >
+      </v-avatar>-->
+      <v-avatar @click="drawer=true">
+        <img
+          v-if="$vuetify.breakpoint.mdAndDown"
+          class="ml-3"
+          :src="require('../assets/app_logo.png')"
+          height="20"
+        >
+      </v-avatar>
 
       <!-- <v-spacer v-if="!$vuetify.breakpoint.lgAndUp"></v-spacer> -->
       <v-spacer></v-spacer>
@@ -30,12 +34,13 @@
         </v-list>
       </v-menu>
 
-      <v-btn icon style="color:#f3bf2e" @click="logout">
+      <v-btn v-if="$vuetify.breakpoint.lgAndUp" icon style="color:#f3bf2e" @click="logout">
         <v-icon>exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
 
     <v-navigation-drawer
+      v-model="drawer"
       app
       :clipped="false"
       hide-overlay
@@ -50,7 +55,7 @@
         </v-list>
       </v-toolbar>-->
 
-      <v-toolbar flat :color="'#000'" @click="openEditDialog">
+      <v-toolbar flat :color="'#000'" @click="openEditDialog" style="cursor:pointer">
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
@@ -88,7 +93,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <edit-profile-dialog :openDialog="showEditDialog"></edit-profile-dialog>
+    <edit-profile-dialog></edit-profile-dialog>
   </div>
 </template>
 
@@ -97,6 +102,7 @@ import axios from "axios";
 import ItemNotification from "../components/custom_components/ItemNotification.vue";
 import person from "../assets/person.png";
 import EditProfileDialog from "../components/main_components/EditProfileDialog.vue";
+import { eventBus } from "../main.js";
 
 export default {
   components: {
@@ -105,6 +111,8 @@ export default {
   },
   data() {
     return {
+      eventBus,
+      drawer: false,
       notifications: [],
       user: {},
       image: "",
@@ -113,9 +121,10 @@ export default {
         { id: 1, title: "Signals", icon: "swap_vert" },
         { id: 2, title: "Referrals", icon: "people" },
         { id: 3, title: "Earnings", icon: "attach_money" },
-        { id: 4, title: "Payment Methods", icon: "account_balance" }
+        { id: 4, title: "Payment Methods", icon: "account_balance" },
+        { id: 5, title: "Log out", icon: "exit_to_app" }
       ],
-      itemsOnLargeScreen:[
+      itemsOnLargeScreen: [
         { id: 2, title: "Referrals", icon: "people" },
         { id: 3, title: "Earnings", icon: "attach_money" },
         { id: 4, title: "Payment Methods", icon: "account_balance" }
@@ -123,7 +132,6 @@ export default {
     };
   },
   mounted() {
-
     this.user = JSON.parse(localStorage.getItem("user"));
     this.image =
       "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
@@ -149,9 +157,10 @@ export default {
       if (value.id == 2) this.$router.push("referrals");
       if (value.id == 3) this.$router.push("earnings");
       if (value.id == 4) this.$router.push("payment_methods");
+      if (value.id == 5) this.logout();
     },
     openEditDialog() {
-      this.showEditDialog = true;
+      eventBus.$emit("showDialog", true);
     },
     logout() {
       this.$store

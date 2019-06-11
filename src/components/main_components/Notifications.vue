@@ -24,12 +24,12 @@ export default {
     };
   },
   mounted() {
-    let userId = JSON.parse(localStorage.getItem("user"));
+    let user = JSON.parse(localStorage.getItem("user"));
     axios({
       method: "GET",
       url:
         "http://www.vacayplanet.com/ArmageddonApi/public/api/notifications/" +
-        userId.id
+        user.id
     })
       .then(response => {
         this.notifications = response.data;

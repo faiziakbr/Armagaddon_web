@@ -1,7 +1,8 @@
 <template>
-  <div style="padding:10px;" class="secondary">
-    <v-list style="height:350px" class="scroll-y">
-      <v-flex v-for="(item, i) in signals" :key="i" xs12 id="myChat">
+  <div style="padding:10px;" class="secondary" id="scrolled-content">
+    <button @click="scrollToBot">test</button>
+    <v-list style="height:350px" class="scroll-y" id="scroll-target">
+      <v-flex v-for="(item, i) in signals" :key="i" xs12>
         <!-- <p v-if="i == 0">{{item.date}}</p>
         <p
           v-else-if="new Date(moment(signals[--i].date).format('MM/DD/YYYY')) != new Date(moment(item.date).format('MM/DD/YYYY'))"
@@ -25,11 +26,12 @@ export default {
   data() {
     return {
       loading: true,
-      signals: [],
+      signals: []
     };
   },
   mounted() {
     this.fetchSignals();
+    this.scrollToBot();
   },
   methods: {
     fetchSignals() {
@@ -45,6 +47,21 @@ export default {
         );
       });
       this.signals = temp;
+      
+    },
+    scrollToBot() {
+      this.elem = document.getElementById("scrolled-content");
+      this.container = document.getElementById("scroll-target");
+      this.container.scrollTop = this.elem.offsetHeight + 9999;
+    }
+  },
+  computed: {
+    options() {
+      return {
+        duration: 1000,
+        offset: 0,
+        easing: "easeInOutCubic"
+      };
     }
   }
 };

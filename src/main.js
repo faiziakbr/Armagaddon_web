@@ -14,7 +14,7 @@ Vue.use(Vuetify, {
 });
 
 Vue.use(require("vue-moment"));
-
+export const eventBus = new Vue();
 
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token');

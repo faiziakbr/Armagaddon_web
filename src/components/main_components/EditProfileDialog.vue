@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="openDialog" persistent max-width="600px">
+  <v-dialog v-model="dialog" max-width="600px">
     <v-card>
       <v-form v-model="valid">
         <v-card-title>
@@ -60,7 +60,6 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="closeDialog">Close</v-btn>
           <v-btn color="blue darken-1" flat @click="submit" :disabled="!valid">Update</v-btn>
         </v-card-actions>
       </v-form>
@@ -71,12 +70,12 @@
 <script>
 import person from "../../assets/person.png";
 import axios from "axios";
+import { eventBus } from "../../main.js";
 
 export default {
-  props: ["openDialog"],
   data() {
     return {
-      dialog: this.openDialog,
+      dialog: false,
       valid: false,
       user: null,
       selectedFile: null,
@@ -93,13 +92,16 @@ export default {
     };
   },
   mounted() {
+    eventBus.$on("showDialog", data => {
+      this.dialog = data;
+    });
     this.user = JSON.parse(localStorage.getItem("user"));
     this.firstName = this.user.first_name;
     this.lastName = this.user.last_name;
     this.city = this.user.city;
     this.country = this.user.country;
     this.image =
-      "http://www.vacayplanet.com/ArmageddonApi/public/api/" +
+      "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
       this.user.profile_pic_url;
   },
   methods: {
@@ -141,27 +143,12 @@ export default {
           }
         )
         .then(resp => {
-          console.log(resp.data);
           localStorage.setItem("user", JSON.stringify(resp.data.customer));
         })
         .catch(error => {
           console.log(error);
         });
     },
-    // onImageChange1(e) {
-    //   let files = e.target.files || e.dataTransfer.files;
-    //   if (!files.length) return;
-    //   this.createImage1(files[0]);
-    // },
-    // createImage1(file1) {
-    //   let reader = new FileReader();
-    //   let vm = this;
-    //   reader.onload = e => {
-    //      vm.adPic1 = e.target.result;
-
-    //   };
-    //   reader.readAsDataURL(file1);
-    // },
 
     closeDialog() {
       this.openDialog = false;
@@ -171,14 +158,5 @@ export default {
       event.target.src = this.image;
     }
   },
-  watch: {
-    dialog(val) {
-      if (!val) return;
-    }
-    // openDialog(val) {
-    //   console.log(val);
-    //   this.dialog = val;
-    // }
-  }
 };
 </script>
