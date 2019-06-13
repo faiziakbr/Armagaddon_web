@@ -15,7 +15,7 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
-      component: () => import("./components/auth_pages/Login.vue")
+      component: () => import("./components/auth_pages/Login.vue"),
     },
     {
       path: "/register",
@@ -89,6 +89,8 @@ router.beforeEach((to, from, next) => {
       return;
     }
     next("/login");
+  } else if (store.getters.isLoggedIn) {
+    next('/');
   } else {
     next();
   }

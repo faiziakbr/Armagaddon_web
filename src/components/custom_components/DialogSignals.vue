@@ -1,6 +1,6 @@
 <template>
   <div style="padding:10px;" class="secondary" id="scrolled-content">
-    <button @click="scrollToBot">test</button>
+    <!-- <button @click="scrollToBot">test</button> -->
     <v-list style="height:350px" class="scroll-y" id="scroll-target">
       <v-flex v-for="(item, i) in signals" :key="i" xs12>
         <!-- <p v-if="i == 0">{{item.date}}</p>
