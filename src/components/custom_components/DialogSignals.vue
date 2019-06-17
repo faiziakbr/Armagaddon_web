@@ -35,9 +35,10 @@ export default {
   },
   methods: {
     fetchSignals() {
-      let temp = [];
       signalRefrance.on("value", snapshot => {
+        let temp = [];
         snapshot.forEach(data => {
+          console.log("HEREE");
           temp.push(data.val());
         });
         temp.sort(
@@ -45,9 +46,8 @@ export default {
             new Date(moment(a.date).format("MM/DD/YYYY hh:mm:ss")) -
             new Date(moment(b.date).format("MM/DD/YYYY hh:mm:ss"))
         );
+        this.signals = temp;
       });
-      this.signals = temp;
-      
     },
     scrollToBot() {
       this.elem = document.getElementById("scrolled-content");

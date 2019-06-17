@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     fetchSignals() {
-      let temp = [];
       signalRefrance.on("value", snapshot => {
+        let temp = [];
         snapshot.forEach(data => {
           temp.push(data.val());
         });
@@ -38,9 +38,9 @@ export default {
             new Date(moment(a.date).format("MM/DD/YYYY hh:mm:ss")) -
             new Date(moment(b.date).format("MM/DD/YYYY hh:mm:ss"))
         );
+        this.signals = temp;
+        this.scrollToBottom();
       });
-      this.signals = temp;
-      this.scrollToBottom();
     },
     scrollToBottom() {
       this.$vuetify.goTo(9999, this.options);
