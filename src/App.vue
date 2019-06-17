@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <!-- <v-layout column justify-start> -->
     <app-header v-if="isLoggedIn"></app-header>
     <v-content>
@@ -12,17 +12,17 @@
     </v-content>
 
     <div
-      style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; background-color:#000; border-radius:10px"
+      style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; border-radius:10px"
       v-if="isLoggedIn  && $vuetify.breakpoint.mdAndUp"
       v-show="showSignals"
     >
       <v-card>
         <v-layout align-content-space-between align-center>
           <v-flex>
-            <h1 style="color:#fff; padding-left:10px" class="headline">Signals</h1>
+            <h1 style="padding-left:10px" class="headline">Signals</h1>
           </v-flex>
           <v-flex class="text-xs-right">
-            <v-btn flat icon color="white" @click="toggleSignals">
+            <v-btn flat icon @click="toggleSignals">
               <v-icon dark>cancel</v-icon>
             </v-btn>
           </v-flex>
@@ -39,7 +39,7 @@
       v-if="isLoggedIn && $vuetify.breakpoint.mdAndUp"
       v-show="!showSignals"
     >
-      <v-btn absolute dark fab top right color="#f3bf2e" @click="toggleSignals">
+      <v-btn absolute fab top right color="#f3bf2e" @click="toggleSignals">
         <v-icon>swap_vert</v-icon>
       </v-btn>
     </div>

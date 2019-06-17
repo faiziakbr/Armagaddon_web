@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar app :color="'#000'">
+    <v-toolbar app>
       <!-- <v-avatar >
         <img
           v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
@@ -8,42 +8,45 @@
           @error="imageLoadError"
         >
       </v-avatar>-->
-      <v-avatar @click="drawer=true">
+      <v-toolbar-side-icon @click="drawer=true" v-if="$vuetify.breakpoint.mdAndDown"></v-toolbar-side-icon>
+      <v-toolbar-title>Forex Arma</v-toolbar-title>
+
+      <!-- <v-avatar @click="drawer=true">
         <img
           v-if="$vuetify.breakpoint.mdAndDown"
           class="ml-3"
           :src="require('../assets/app_logo.png')"
           height="20"
         >
-      </v-avatar>
+      </v-avatar>-->
 
       <!-- <v-spacer v-if="!$vuetify.breakpoint.lgAndUp"></v-spacer> -->
       <v-spacer></v-spacer>
 
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn icon style="color:#f3bf2e" v-on="on">
-            <v-icon>notifications</v-icon>
+          <v-btn icon v-on="on">
+            <v-icon color="accent">notifications</v-icon>
           </v-btn>
         </template>
-        <v-list style="max-height: 300px;width:350px; background-color:transparent;">
-          <v-flex v-for="(item, index) in notifications" :key="index" class="secondary">
+        <v-list style="max-height: 300px;width:350px;">
+          <v-flex v-for="(item, index) in notifications" :key="index">
             <ItemNotification :itemNotification="item"></ItemNotification>
             <v-divider :key="index"></v-divider>
           </v-flex>
         </v-list>
       </v-menu>
 
-      <v-btn v-if="$vuetify.breakpoint.lgAndUp" icon style="color:#f3bf2e" @click="logout">
-        <v-icon>exit_to_app</v-icon>
+      <v-btn v-if="$vuetify.breakpoint.lgAndUp" icon @click="logout">
+        <v-icon color="accent">exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
 
     <v-navigation-drawer
+      style="background-color:#455161"
       v-model="drawer"
       app
       :clipped="false"
-      hide-overlay
       :permanent="$vuetify.breakpoint.lg || $vuetify.breakpoint.xl "
       :temporary="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
     >
@@ -55,8 +58,8 @@
         </v-list>
       </v-toolbar>-->
 
-      <v-toolbar flat :color="'#000'" @click="openEditDialog" style="cursor:pointer">
-        <v-list class="pa-0">
+      <!-- <v-toolbar flat @click="openEditDialog" style="cursor:pointer"> -->
+      <!-- <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
               <img :src="image" @error="imageLoadError">
@@ -66,17 +69,33 @@
               <v-list-tile-title>{{user.first_name}} {{user.last_name}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </v-list>
-      </v-toolbar>
+      </v-list>-->
+
+      <!-- </v-toolbar>  -->
+
+      <v-container>
+        <v-layout column align-center>
+          <v-avatar :size="100" color="grey lighten-4">
+            <img :src="image" @error="imageLoadError" alt="avatar">
+          </v-avatar>
+          <v-card-title>
+            <div>
+              <h3 class="headline mb-0 accent--text">{{user.first_name}} {{user.last_name}}</h3>
+              <h4 class="mb-0 accent--text" style="text-align:center">{{user.referral_code}}</h4>
+            </div>
+          </v-card-title>
+          <v-btn round color="accent primary--text" @click="openEditDialog">Account</v-btn>
+        </v-layout>
+      </v-container>
 
       <v-list v-if="$vuetify.breakpoint.mdAndUp">
         <v-list-tile v-for="item in itemsOnLargeScreen" :key="item.title" @click="menuClick(item)">
           <v-list-tile-action>
-            <v-icon style="color:#f3bf2e">{{ item.icon }}</v-icon>
+            <v-icon color="iconColor">{{ item.icon }}</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title style="color:#fff">{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -88,7 +107,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title style="color:#fff">{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

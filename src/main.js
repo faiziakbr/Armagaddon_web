@@ -10,7 +10,14 @@ import firebase from 'firebase'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
-  iconfont: 'mdi' // 'md' || 'mdi' || 'fa' || 'fa4'
+  iconfont: 'mdi', // 'md' || 'mdi' || 'fa' || 'fa4'
+  theme: {
+    primary: '#000000',
+    secondary: '#BA68C8',
+    accent: '#f3bf2e',
+    error: '#b71c1c',
+    iconColor: '#f3bf2e'
+  }
 });
 
 Vue.use(require("vue-moment"));
@@ -33,7 +40,7 @@ export const db = firebase.database()
 export const signalRefrance = db.ref('signals')
 
 if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = "Bearer "+token;
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = "Bearer " + token;
 }
 new Vue({
   router,

@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex v-for="item in referrals" :key="item.id" xs12 sm4 md4 lg4 xl3 class="mb-3 py-2 px-2">
+    <v-flex v-for="item in referrals" :key="item.id" xs12 sm4 md3 lg3 xl2 class="mb-3 py-2 px-2">
       <item-referral style="height: 100%" :itemReferral="item"></item-referral>
     </v-flex>
     <app-loader :showDialog="loading"></app-loader>
