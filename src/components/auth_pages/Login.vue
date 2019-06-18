@@ -1,15 +1,22 @@
 <template>
   <v-container fluid fill-height>
     <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
+      <v-flex xs12 sm4 md4>
         <v-card class="elevation-12">
-          <v-toolbar dark color="primary">
-            <v-toolbar-title>Login</v-toolbar-title>
-            <v-spacer></v-spacer>
-          </v-toolbar>
+          <div style="background-color:#000">
+            <v-layout justify-center>
+              <v-avatar :size="150">
+                <img :src="require('../../assets/lion.png')">
+              </v-avatar>
+            </v-layout>
+          </div>
+          <v-layout justify-center class="mt-2">
+            <h3 class="accent--text headline">Sign in</h3>
+          </v-layout>
           <v-form v-model="valid">
             <v-card-text>
               <v-text-field
+                color="accent"
                 prepend-icon="email"
                 name="email"
                 label="email"
@@ -19,6 +26,7 @@
                 :rules="emailRules"
               ></v-text-field>
               <v-text-field
+                color="accent"
                 prepend-icon="lock"
                 name="password"
                 label="Password"
@@ -30,7 +38,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="login" :disabled="!valid">Login</v-btn>
+              <v-btn color="accent" @click="login" :disabled="!valid">Login</v-btn>
+              <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
         </v-card>
