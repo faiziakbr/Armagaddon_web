@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar app>
+    <v-toolbar app style="padding-left: 0px" class="primary">
       <!-- <v-avatar >
         <img
           v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
@@ -8,8 +8,10 @@
           @error="imageLoadError"
         >
       </v-avatar>-->
-      <v-toolbar-side-icon @click="drawer=true" v-if="$vuetify.breakpoint.mdAndDown"></v-toolbar-side-icon>
-      <v-toolbar-title>Forex Arma</v-toolbar-title>
+      <v-toolbar-side-icon @click="drawer=true" v-if="$vuetify.breakpoint.mdAndDown">
+        <v-icon class="accent--text">menu</v-icon>
+      </v-toolbar-side-icon>
+      <v-toolbar-title class="accent--text">Forex Arma</v-toolbar-title>
 
       <!-- <v-avatar @click="drawer=true">
         <img
@@ -26,7 +28,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
-            <v-icon color="primary">notifications</v-icon>
+            <v-icon color="accent">notifications</v-icon>
           </v-btn>
         </template>
         <v-list style="max-height: 300px;width:350px;">
@@ -38,42 +40,32 @@
       </v-menu>
 
       <v-btn v-if="$vuetify.breakpoint.lgAndUp" icon @click="logout">
-        <v-icon color="primary">exit_to_app</v-icon>
+        <v-icon color="accent">exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
+    <!-- style="background-color:#455161" -->
 
     <v-navigation-drawer
-      style="background-color:#455161"
+      style="background-color:#000"
       v-model="drawer"
       app
-      :clipped="false"
+      :clipped="true"
       :permanent="$vuetify.breakpoint.lg || $vuetify.breakpoint.xl "
       :temporary="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
     >
-      <!-- <v-toolbar color="#000">
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-title class="title" style="color:#f3bf2e">ARMAGEDDON</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar>-->
-
-      <!-- <v-toolbar flat @click="openEditDialog" style="cursor:pointer"> -->
-      <!-- <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img :src="image" @error="imageLoadError">
-            </v-list-tile-avatar>
-
-            <v-list-tile-content>
-              <v-list-tile-title>{{user.first_name}} {{user.last_name}}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-      </v-list>-->
-
-      <!-- </v-toolbar>  -->
-
-      <v-container>
+      <v-img :aspect-ratio="10/9" :src="require('../assets/background_menu.png')">
+        <v-layout column align-center  pa-4>
+          <v-avatar :size="120" color="grey lighten-4">
+            <img :src="image" @error="imageLoadError" alt="avatar">
+          </v-avatar>
+          <v-card-title>
+            <div>
+              <h3 class="headline mb-0 accent--text">{{user.first_name}} {{user.last_name}}</h3>
+            </div>
+          </v-card-title>
+        </v-layout>
+      </v-img>
+      <!-- <v-container>
         <v-layout column align-center>
           <v-avatar :size="100" color="grey lighten-4">
             <img :src="image" @error="imageLoadError" alt="avatar">
@@ -86,7 +78,7 @@
           </v-card-title>
           <v-btn round color="accent primary--text" @click="openEditDialog">Account</v-btn>
         </v-layout>
-      </v-container>
+      </v-container>-->
 
       <v-list v-if="$vuetify.breakpoint.mdAndUp">
         <v-list-tile v-for="item in itemsOnLargeScreen" :key="item.title" @click="menuClick(item)">
@@ -140,13 +132,14 @@ export default {
         { id: 1, title: "Signals", icon: "swap_vert" },
         { id: 2, title: "Referrals", icon: "people" },
         { id: 3, title: "Earnings", icon: "attach_money" },
-        { id: 4, title: "Payment Methods", icon: "account_balance" },
+        { id: 4, title: "Withdraw Methods", icon: "account_balance" },
         { id: 5, title: "Log out", icon: "exit_to_app" }
       ],
       itemsOnLargeScreen: [
+        { id: 1, title: "Signals", icon: "swap_vert" },
         { id: 2, title: "Referrals", icon: "people" },
         { id: 3, title: "Earnings", icon: "attach_money" },
-        { id: 4, title: "Payment Methods", icon: "account_balance" }
+        { id: 4, title: "Withdraw Methods", icon: "account_balance" }
       ]
     };
   },

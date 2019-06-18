@@ -1,45 +1,50 @@
-<template>
-  <v-layout column>
-    <v-layout row>
-      <v-flex>
-        <v-card class="mx-2 my-2">
-          <v-card-title>
-            <div>
-              <h3 class="headline">Personal Balance</h3>
-              <h3 class="headline">${{earnings.total_earned - earnings.withdrawn}}</h3>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-      <v-flex>
-        <v-card class="mx-2 my-2">
-          <v-card-title>
-            <div>
-              <h3 class="headline">Total Earned</h3>
-              <h3 class="headline">${{earnings.total_earned}}</h3>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-      <v-flex>
-        <v-card class="mx-2 my-2">
-          <v-card-title>
-            <div>
-              <h3 class="headline">Withdrawn</h3>
-              <h3 class="headline">${{earnings.withdrawn}}</h3>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
+<template >
+  <div>
+    <v-layout justify-center >
+      <h3 class="headline" style="font-weight:bold">Earnings</h3>
     </v-layout>
-    <v-card-title>Transactions</v-card-title>
     <v-layout column>
-      <v-flex v-for="item in transactions" :key="item.id" xs12 class="py-2 px-2">
-        <item-transaction :itemTransaction="item"></item-transaction>
-      </v-flex>
+      <v-layout row>
+        <v-flex>
+          <v-card class="mx-2 my-2">
+            <v-card-title>
+              <div>
+                <h3 class="headline">Personal Balance</h3>
+                <h3 class="headline">${{earnings.total_earned - earnings.withdrawn}}</h3>
+              </div>
+            </v-card-title>
+          </v-card>
+        </v-flex>
+        <v-flex>
+          <v-card class="mx-2 my-2">
+            <v-card-title>
+              <div>
+                <h3 class="headline">Total Earned</h3>
+                <h3 class="headline">${{earnings.total_earned}}</h3>
+              </div>
+            </v-card-title>
+          </v-card>
+        </v-flex>
+        <v-flex>
+          <v-card class="mx-2 my-2">
+            <v-card-title>
+              <div>
+                <h3 class="headline">Withdrawn</h3>
+                <h3 class="headline">${{earnings.withdrawn}}</h3>
+              </div>
+            </v-card-title>
+          </v-card>
+        </v-flex>
+      </v-layout>
+      <v-card-title>Transactions</v-card-title>
+      <v-layout column>
+        <v-flex v-for="item in transactions" :key="item.id" xs12 class="py-2 px-2">
+          <item-transaction :itemTransaction="item"></item-transaction>
+        </v-flex>
+      </v-layout>
+      <app-loader :showDialog="loading"></app-loader>
     </v-layout>
-    <app-loader :showDialog="loading"></app-loader>
-  </v-layout>
+  </div>
 </template>
 
 <script>

@@ -1,10 +1,15 @@
 <template>
-  <v-layout row wrap>
-    <v-flex v-for="(item, i) in signals" :key="i" xs12 class="mb-3 py-2 px-2">
-      <item-signal v-if="i == 0" :signal="item"></item-signal>
-      <item-signal v-else :signal="item" :pDate="signals[--i].date"></item-signal>
-    </v-flex>
-  </v-layout>
+  <div>
+    <v-layout justify-center>
+      <h3 class="headline" style="font-weight:bold">Signals</h3>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex v-for="(item, i) in signals" :key="i" xs12 class="mb-3 py-2 px-2">
+        <item-signal v-if="i == 0" :signal="item"></item-signal>
+        <item-signal v-else :signal="item" :pDate="signals[--i].date"></item-signal>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script>

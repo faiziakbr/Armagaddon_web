@@ -2,13 +2,13 @@
   <v-app>
     <!-- <v-layout column justify-start> -->
     <app-header v-if="isLoggedIn"></app-header>
-    <v-content>
+    <v-content style="background-color:#e8edf0">
       <!-- <p v-if="$vuetify.breakpoint.xs">IT IS XS</p>
         <p v-if="$vuetify.breakpoint.sm">IT IS SM</p>
         <p v-if="$vuetify.breakpoint.md">IT IS MD</p>
         <p v-if="$vuetify.breakpoint.lg">IT IS LG</p>
       <p v-if="$vuetify.breakpoint.xl">IT IS XL</p>-->
-      <router-view></router-view>
+      <router-view class="px-3 py-3"></router-view>
     </v-content>
 
     <div

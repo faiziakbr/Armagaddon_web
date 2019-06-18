@@ -1,6 +1,31 @@
 <template>
   <v-container>
+    <v-layout justify-center>
+      <h3 class="headline" style="font-weight:bold">Withdraw Methods</h3>
+    </v-layout>
     <v-layout row wrap>
+      <v-flex xs12 sm12 md6>
+        <v-card class="my-5 mx-2 px-2 py-1">
+          <h4 class="headline" style="text-align:center">Bank</h4>
+          <v-form v-model="validBank">
+            <v-text-field v-model="name" :rules="nameRules" label="Bank Name" required></v-text-field>
+            <v-text-field v-model="account" :rules="accountRules" label="Account number" required></v-text-field>
+            <v-text-field v-model="swiftCode" :rules="codeRules" label="Swift Code" required></v-text-field>
+            <v-btn @click="updateBank" :disabled="!validBank">submit</v-btn>
+          </v-form>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 sm12 md6>
+        <v-card class="my-5 mx-2 px-2 py-1">
+          <h4 class="headline" style="text-align:center;">Paypal</h4>
+          <v-form v-model="validPaypal">
+            <v-text-field v-model="paypalEmail" :rules="emailRules" label="Paypal Email" required></v-text-field>
+            <v-btn @click="updatePaypal" :disabled="!validPaypal">submit</v-btn>
+          </v-form>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <!-- <v-layout row wrap>
       <v-flex xs6 md6 style="height:200px;">
         <v-hover class="mx-2">
           <v-card slot-scope="{hover}" :class="`${hover ? 'class1' : 'class2'}`" @click="openBank">
@@ -45,7 +70,7 @@
           </v-form>
         </v-card>
       </v-flex>
-    </v-layout>
+    </v-layout>-->
     <my-loader :showDialog="loading"></my-loader>
   </v-container>
 </template>
