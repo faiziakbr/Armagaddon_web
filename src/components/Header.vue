@@ -26,7 +26,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
-            <v-icon color="accent">notifications</v-icon>
+            <v-icon color="primary">notifications</v-icon>
           </v-btn>
         </template>
         <v-list style="max-height: 300px;width:350px;">
@@ -38,7 +38,7 @@
       </v-menu>
 
       <v-btn v-if="$vuetify.breakpoint.lgAndUp" icon @click="logout">
-        <v-icon color="accent">exit_to_app</v-icon>
+        <v-icon color="primary">exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
 

@@ -14,7 +14,7 @@
     <div
       style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; border-radius:10px"
       v-if="isLoggedIn  && $vuetify.breakpoint.mdAndUp"
-      v-show="showSignals"
+      v-show="!showSignals"
     >
       <v-card>
         <v-layout align-content-space-between align-center>
@@ -37,7 +37,7 @@
     <div
       style="position:fixed; bottom: 50px; right:10px; z-index: 9999;"
       v-if="isLoggedIn && $vuetify.breakpoint.mdAndUp"
-      v-show="!showSignals"
+      v-show="showSignals"
     >
       <v-btn absolute fab top right color="#f3bf2e" @click="toggleSignals">
         <v-icon>swap_vert</v-icon>
