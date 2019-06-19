@@ -1,5 +1,5 @@
 <template>
-  <div style="padding:10px;" class="secondary" id="scrolled-content">
+  <div style="padding:10px; background-color:#fff" id="scrolled-content">
     <!-- <button @click="scrollToBot">test</button> -->
     <v-list style="height:350px" class="scroll-y" id="scroll-target">
       <v-flex v-for="(item, i) in signals" :key="i" xs12>
@@ -18,6 +18,7 @@
 import { signalRefrance } from "../../main.js";
 import moment from "moment";
 import ItemSignal from "../custom_components/ItemSignal.vue";
+import { eventBus } from "../../main.js";
 
 export default {
   components: {
@@ -38,7 +39,6 @@ export default {
       signalRefrance.on("value", snapshot => {
         let temp = [];
         snapshot.forEach(data => {
-          console.log("HEREE");
           temp.push(data.val());
         });
         temp.sort(
@@ -46,6 +46,7 @@ export default {
             new Date(moment(a.date).format("MM/DD/YYYY hh:mm:ss")) -
             new Date(moment(b.date).format("MM/DD/YYYY hh:mm:ss"))
         );
+        eventBus.$emit("signal_counter", true);
         this.signals = temp;
       });
     },

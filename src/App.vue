@@ -40,7 +40,12 @@
       v-show="showSignals"
     >
       <v-btn absolute fab top right color="#f3bf2e" @click="toggleSignals">
-        <v-icon>swap_vert</v-icon>
+        <v-badge :value="count > 0 ? true : false">
+          <template v-slot:badge>
+            <span>{{count}}</span>
+          </template>
+          <v-icon>swap_vert</v-icon>
+        </v-badge>
       </v-btn>
     </div>
 
@@ -65,7 +70,7 @@ import Header from "./components/Header.vue";
 import MyLoader from "./components/custom_components/MyLoader.vue";
 import SignalDialog from "./components/custom_components/DialogSignals.vue";
 import axios from "axios";
-
+import { eventBus } from "../src/main.js";
 export default {
   name: "App",
   components: {
@@ -76,7 +81,8 @@ export default {
   data() {
     return {
       loading: false,
-      showSignals: true
+      showSignals: true,
+      count: -1
     };
   },
   created: function() {
@@ -89,6 +95,11 @@ export default {
       });
     });
   },
+  mounted() {
+    eventBus.$on("signal_counter", data => {
+      if (data) this.count = this.count + 1;
+    });
+  },
   methods: {
     logout: function() {
       this.$store.dispatch("logout").then(() => {
@@ -97,7 +108,7 @@ export default {
     },
     toggleSignals() {
       this.showSignals = !this.showSignals;
-    },
+    }
   },
   computed: {
     isLoggedIn: function() {
@@ -105,8 +116,9 @@ export default {
     },
     isLoading: function() {
       return this.$store.getters.authStatus;
-    },
+    }
   },
+  updated() {},
   watch: {
     isLoading(value) {
       if (value == "loading") this.loading = true;
