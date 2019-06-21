@@ -62,6 +62,7 @@
 <script>
 import EditBankDialog from "../custom_components/EditBankDialog.vue";
 import EditPaypalDialog from "../custom_components/EditPaypalDialog.vue";
+
 export default {
   components: {
     EditBankDialog,
@@ -83,13 +84,15 @@ export default {
   },
   methods: {
     callBackBankDialog(value) {
-      this.name = value.name;
-      this.account = value.account;
-      this.swiftCode = value.code;
+      if (value.makeChange) {
+        this.name = value.name;
+        this.account = value.account;
+        this.swiftCode = value.code;
+      }
       this.bankDialog = false;
     },
     callBackPaypalDialog(value) {
-      this.paypalEmail = value.email;
+      if (value.makeChange) this.paypalEmail = value.email;
       this.paypalDialog = false;
     },
     updateBank() {

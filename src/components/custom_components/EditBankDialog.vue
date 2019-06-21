@@ -52,11 +52,12 @@ export default {
     onClickBack(value) {
       //Pass data back to parent
       var obj = {
+        makeChange: value,
         name: this.name,
         account: this.account,
         code: this.swiftCode
       };
-      if (value) this.$emit("clicked", obj);
+      this.$emit("clicked", obj);
 
       this.showDialog = false;
     },

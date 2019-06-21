@@ -17,66 +17,81 @@
             <v-toolbar-title>Register</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
+
           <v-form v-model="valid">
             <v-card-text>
-              <v-text-field
-                prepend-icon="person"
-                name="first_name"
-                label="First Name"
-                v-model="firstName"
-                required
-                :rules="firstNameRules"
-              ></v-text-field>
-              <v-text-field
-                prepend-icon="person"
-                name="last_name"
-                label="Last Name"
-                v-model="lastName"
-                required
-                :rules="lastNameRules"
-              ></v-text-field>
-              <v-text-field
-                prepend-icon="email"
-                name="email"
-                label="email"
-                type="email"
-                v-model="email"
-                required
-                :rules="emailRules"
-              ></v-text-field>
-              <v-text-field
-                prepend-icon="lock"
-                name="password"
-                label="Password"
-                type="password"
-                v-model="password"
-                required
-                :rules="passwordRules"
-              ></v-text-field>
-              <v-text-field
-                prepend-icon="lock"
-                name="confirm_password"
-                label="Confirm Password"
-                type="password"
-                v-model="confirmPassword"
-                required
-                :rules="confirmPasswordRules"
-              ></v-text-field>
-              <v-text-field
-                prepend-icon="code"
-                name="referral_code"
-                label="Referral Code"
-                v-model="referralCode"
-                required
-                @blur="validateReferralCode"
-                :append-icon="icon"
-                :rules="referralCodeRules"
-                :loading="checkReferral"
-              >
-                <template v-slot:progress>
-                  <v-progress-linear :indeterminate="true" height="5"></v-progress-linear>
-                </template>
-              </v-text-field>
+              <v-layout row wrap>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    prepend-icon="person"
+                    name="first_name"
+                    label="First Name"
+                    v-model="firstName"
+                    required
+                    :rules="firstNameRules"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    prepend-icon="person"
+                    name="last_name"
+                    label="Last Name"
+                    v-model="lastName"
+                    required
+                    :rules="lastNameRules"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    prepend-icon="email"
+                    name="email"
+                    label="email"
+                    type="email"
+                    v-model="email"
+                    required
+                    :rules="emailRules"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    prepend-icon="code"
+                    name="referral_code"
+                    label="Referral Code"
+                    v-model="referralCode"
+                    required
+                    @blur="validateReferralCode"
+                    :append-icon="icon"
+                    :rules="referralCodeRules"
+                    :loading="checkReferral"
+                  >
+                    <template v-slot:progress>
+                      <v-progress-linear :indeterminate="true" height="5"></v-progress-linear>
+                    </template>
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    prepend-icon="lock"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    v-model="password"
+                    required
+                    :rules="passwordRules"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    prepend-icon="lock"
+                    name="confirm_password"
+                    label="Confirm Password"
+                    type="password"
+                    v-model="confirmPassword"
+                    required
+                    :rules="confirmPasswordRules"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>

@@ -21,6 +21,7 @@
 <script>
 import MyLoader from "../custom_components/MyLoader.vue";
 import axios from "axios";
+
 export default {
   props: ["showDialog"],
   data() {
@@ -46,9 +47,10 @@ export default {
     onClickBack(value) {
       //Pass data back to parent
       var obj = {
+        makeChange: value,
         email: this.paypalEmail
       };
-      if (value) this.$emit("clicked", obj);
+      this.$emit("clicked", obj);
 
       this.showDialog = false;
     },
