@@ -11,6 +11,9 @@
               class="text-xs-center"
               v-if="transaction.type == 'referral'"
             >{{transaction.referral_customer.first_name}}</v-card-text>
+            <v-card-text class="text-xs-center" v-if="transaction.type == 'withdrawn'">
+             withdrawn 
+            </v-card-text>
           </v-flex>
           <v-flex>
             <v-card-text class="text-xs-right">${{transaction.amount}}</v-card-text>

@@ -23,14 +23,14 @@
               <input type="hidden" name="merchant_key" value="3vnc7o0v1771c">
               <input type="hidden" name="return_url" value="https://www.google.com">
               <input type="hidden" name="cancel_url" value="https://www.yahoo.com">
-              <input type="hidden" name="notify_url" value="http://192.168.0.101:8080/checkout">
-              <input type="hidden" name="amount" value="500">
+              <input type="hidden" name="notify_url" value="http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe">
+              <input type="hidden" name="amount" value="400">
               <input type="hidden" name="item_name" value="subscription">
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn type="submit" value="submit" color="primary">Pay</v-btn>
-              <!-- <v-btn color="accent" @click="payfast">Payfast</v-btn> -->
+              <v-btn color="accent" @click="open">open</v-btn>
             </v-card-actions>
           </form>
         </v-card>
@@ -40,5 +40,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted(){
+    if(this.$route.path.includes('http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe')){
+        console.log("HELLO WORLD !!!!");
+         localStorage.setItem("subscribed", "FINALLY");
+         window.open("https://facebook.com", "_blank"); 
+    }
+  },
+  methods:{
+    open(){
+      window.open("https://facebook.com", "_blank"); 
+    }
+  }
+};
 </script>
