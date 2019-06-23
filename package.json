@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "express": "^4.17.1",
     "firebase": "^6.0.4",
     "vue": "^2.6.10",
     "vue-moment": "^4.0.0",
@@ -38,7 +40,6 @@
     },
     "extends": [
       "plugin:vue/essential"
-      
     ],
     "rules": {},
     "parserOptions": {
