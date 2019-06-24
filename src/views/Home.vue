@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       loading:false,
-      earnings: null,
+      earnings: {},
       days:null,
       referrals:0
     };

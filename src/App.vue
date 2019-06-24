@@ -71,6 +71,7 @@ import MyLoader from "./components/custom_components/MyLoader.vue";
 import SignalDialog from "./components/custom_components/DialogSignals.vue";
 import axios from "axios";
 import { eventBus } from "../src/main.js";
+
 export default {
   name: "App",
   components: {

@@ -18,6 +18,12 @@
             <v-spacer></v-spacer>
           </v-toolbar>
 
+          <p
+            :hidden="errorText.length <= 0"
+            class="ma-2"
+            style="border: 2px red solid; padding:2px; background-color:rgba(255, 0, 0, 0.2);"
+          >{{errorText}}</p>
+
           <v-form v-model="valid">
             <v-card-text>
               <v-layout row wrap>
@@ -29,6 +35,7 @@
                     v-model="firstName"
                     required
                     :rules="firstNameRules"
+                    @click.native="removeErrorText"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
@@ -39,6 +46,7 @@
                     v-model="lastName"
                     required
                     :rules="lastNameRules"
+                    @click.native="removeErrorText"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
@@ -50,18 +58,17 @@
                     v-model="email"
                     required
                     :rules="emailRules"
+                    @click.native="removeErrorText"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-text-field
                     prepend-icon="code"
                     name="referral_code"
-                    label="Referral Code"
+                    label="Referral Code (optional)"
                     v-model="referralCode"
-                    required
                     @blur="validateReferralCode"
                     :append-icon="icon"
-                    :rules="referralCodeRules"
                     :loading="checkReferral"
                   >
                     <template v-slot:progress>
@@ -78,6 +85,7 @@
                     v-model="password"
                     required
                     :rules="passwordRules"
+                    @click.native="removeErrorText"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
@@ -89,18 +97,14 @@
                     v-model="confirmPassword"
                     required
                     :rules="confirmPasswordRules"
+                    @click.native="removeErrorText"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                color="primary"
-                @click="register"
-                :disabled="(!valid || !referralValid)"
-              >Register</v-btn>
-              <!-- <v-btn color="accent" @click="payfast">Payfast</v-btn> -->
+              <v-btn color="accent" @click="register" :disabled="(!valid)">Register</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -117,15 +121,17 @@ export default {
   data() {
     return {
       valid: false,
+      errorText: "",
       checkReferral: false,
       referralValid: false,
       icon: "",
-      firstName: "MyTest1",
-      lastName: "working",
-      email: "MyTest1@test.com",
+      firstName: "fdsfd",
+      lastName: "fdsfds",
+      email: "test@test.com",
       password: "123456",
-      confirmPassword: "123456",
-      referralCode: "2d4cf02c10",
+      confirmPassword: "1234567",
+      referralCode: "",
+      referralId: -1,
       firstNameRules: [v => !!v || "First name is required"],
       lastNameRules: [v => !!v || "Last name is required"],
       emailRules: [
@@ -139,8 +145,7 @@ export default {
       confirmPasswordRules: [
         v => !!v || "Confirm password is required",
         v => v.length >= 6 || "Password must not be less than 6 characters"
-      ],
-      referralCodeRules: [v => !!v || "Referral code is required"]
+      ]
     };
   },
   methods: {
@@ -154,6 +159,7 @@ export default {
           )
           .then(response => {
             if (response.status == 200) {
+              this.referralId = response.data.referral.id;
               this.referralValid = true;
               this.checkReferral = false;
               this.icon = "check_circle";
@@ -174,36 +180,49 @@ export default {
     register() {
       // let email = this.email;
       // let password = this.password;
-      let _body = {
-        first_name: this.firstName,
-        last_name: this.lastName,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.confirmPassword,
-        referral_id: this.referralCode
-      };
+
+      if (this.password != this.confirmPassword) {
+        this.errorText = "Password's do not match!";
+        return;
+      }
+
+      let _body = {};
+      if (this.referralCode == "") {
+        _body = {
+          first_name: this.firstName,
+          last_name: this.lastName,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.confirmPassword
+        };
+      } else if (this.referralValid) {
+        console.log("Running this code");
+        _body = {
+          first_name: this.firstName,
+          last_name: this.lastName,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.confirmPassword,
+          referral_id: this.referralId
+        };
+      } else {
+        if (this.referralCode.length > 0 && !this.referralValid)
+          this.errorText = "Referral Code invalid!";
+        return;
+      }
+
       this.$store
         .dispatch("register", _body)
         .then(response => {
-          console.log(response);
-          this.$router.push("/login");
+          this.$router.push("/checkout");
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log("ERROR: " + err);
+          this.errorText = "Invalid Email or Password!";
+        });
     },
-    payfast() {
-      window.open(
-        "https://sandbox.payfast.co.za/eng/process?merchant_id=10000100&merchant_key=46f0cd694581a&amount=10&item_name=item&return_url=https://www.google.com"
-      );
-      // axios
-      //   .post(
-      //     "https://sandbox.payfast.co.za/eng/process?merchant_id=10000100&merchant_key=46f0cd694581a&amount=10&item_name=item&return_url=https://www.google.com"
-      //   )
-      //   .then(response => {
-      //     console.log(response);
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
+    removeErrorText() {
+      this.errorText = "";
     }
   }
 };

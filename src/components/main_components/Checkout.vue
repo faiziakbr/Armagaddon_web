@@ -17,20 +17,21 @@
             <v-toolbar-title>Pay</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
+          <v-card-text class="subheading">Please make payment of 400.00 ZAR to use services.</v-card-text>
           <form action="https://sandbox.payfast.co.za/eng/process" method="POST">
             <v-card-text>
               <input type="hidden" name="merchant_id" value="10012785">
               <input type="hidden" name="merchant_key" value="3vnc7o0v1771c">
-              <input type="hidden" name="return_url" value="https://www.google.com">
+              <input type="hidden" name="return_url" value="https://forex-arma.herokuapp.com/">
               <input type="hidden" name="cancel_url" value="https://www.yahoo.com">
               <input type="hidden" name="notify_url" value="http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe">
+              <input type="hidden" name="custom_int1" :value="user_id">
               <input type="hidden" name="amount" value="400">
               <input type="hidden" name="item_name" value="subscription">
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn type="submit" value="submit" color="primary">Pay</v-btn>
-              <v-btn color="accent" @click="open">open</v-btn>
+              <v-btn type="submit" value="submit" color="accent">Pay</v-btn>
             </v-card-actions>
           </form>
         </v-card>
@@ -41,17 +42,15 @@
 
 <script>
 export default {
-  mounted(){
-    if(this.$route.path.includes('http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe')){
-        console.log("HELLO WORLD !!!!");
-         localStorage.setItem("subscribed", "FINALLY");
-         window.open("https://facebook.com", "_blank"); 
-    }
+   data() {
+    return {
+      user_id: -1
+    };
   },
-  methods:{
-    open(){
-      window.open("https://facebook.com", "_blank"); 
-    }
+  mounted(){
+    let user = JSON.parse(localStorage.getItem("user"));
+    this.user_id = user.id;
+    console.log(this.user_id);
   }
 };
 </script>

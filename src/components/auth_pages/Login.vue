@@ -13,6 +13,13 @@
           <v-layout justify-center class="mt-2">
             <h3 class="accent--text headline">Sign in</h3>
           </v-layout>
+
+          <p
+            :hidden="errorText.length <= 0"
+            class="ma-2"
+            style="border: 2px red solid; padding:2px; background-color:rgba(255, 0, 0, 0.2);"
+          >{{errorText}}</p>
+
           <v-form v-model="valid">
             <v-card-text>
               <v-text-field
@@ -24,6 +31,7 @@
                 v-model="email"
                 required
                 :rules="emailRules"
+                 @click.native="removeErrorText"
               ></v-text-field>
               <v-text-field
                 color="accent"
@@ -34,6 +42,7 @@
                 v-model="password"
                 required
                 :rules="passwordRules"
+                 @click.native="removeErrorText"
               ></v-text-field>
             </v-card-text>
             <v-card-actions>
@@ -55,6 +64,7 @@ export default {
   data() {
     return {
       valid: false,
+      errorText: "",
       email: "",
       password: "",
       emailRules: [
@@ -74,9 +84,15 @@ export default {
       this.$store
         .dispatch("login", { email, password })
         .then(response => {
-          this.$router.push("/");
+          this.$router.push("/checkout");
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          this.errorText = "Invalid Email or Password!!"
+        } );
+    },
+    removeErrorText() {
+      this.errorText = "";
     }
   }
 };

@@ -88,7 +88,7 @@ router.beforeEach((to, from, next) => {
       next();
       return;
     }
-    next("/login");
+    next('/login')
   } else if (store.getters.isLoggedIn) {
     next('/');
   } else {

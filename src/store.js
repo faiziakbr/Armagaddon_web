@@ -22,6 +22,9 @@ export default new Vuex.Store({
     auth_error(state) {
       state.status = "error";
     },
+    auth_pending(state) {
+      state.status = "pending";
+    },
     logout(state) {
       state.status = "";
       state.token = "";
@@ -37,22 +40,25 @@ export default new Vuex.Store({
           data: user,
           method: "POST",
           onUploadProgress: uploadEvent => {
-            console.log(
-              "Upload event: " +
-                Math.round((uploadEvent.loaded / uploadEvent.total) * 100)
-            );
+            // console.log(
+            //   "Upload event: " +
+            //   Math.round((uploadEvent.loaded / uploadEvent.total) * 100)
+            // );
           }
         })
           .then(resp => {
             const token = resp.data.token;
             const user = resp.data.customer;
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-            if (user.status != "active") {
-              this.logout();
-            } else {
+
+            if (user.status == "active") {
+              localStorage.setItem("token", token);
+              localStorage.setItem("user", JSON.stringify(user));
+              axios.defaults.headers.common["Authorization"] = "Bearer " + token;
               commit("auth_success", token, user);
+              resolve(resp);
+            } else {
+              commit("auth_pending")
+              localStorage.setItem("user", JSON.stringify(user));
               resolve(resp);
             }
           })
@@ -66,8 +72,8 @@ export default new Vuex.Store({
 
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
-        commit("auth_request");
         console.log(user);
+        commit("auth_request");
         axios({
           url: "http://www.vacayplanet.com/ArmageddonApi/public/api/register",
           data: user,
@@ -75,12 +81,9 @@ export default new Vuex.Store({
         })
           .then(resp => {
             const token = resp.data.token;
-            console.log(resp.data);
-            // const user = resp.data.customer;
-            // localStorage.setItem("token", token);
-            // localStorage.setItem('user',JSON.stringify(user)),
-            axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", token, user);
+            const user = resp.data.customer;
+            commit("auth_pending");
+            localStorage.setItem("user", JSON.stringify(user));
             resolve(resp);
           })
           .catch(err => {
