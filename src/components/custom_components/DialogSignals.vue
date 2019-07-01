@@ -1,7 +1,7 @@
 <template>
   <div style="padding:10px; background-color:#fff" id="scrolled-content">
     <!-- <button @click="scrollToBot">test</button> -->
-    <v-list style="height:350px" class="scroll-y" id="scroll-target">
+    <v-list style="height:330px" class="scroll-y" id="scroll-target">
       <v-flex v-for="(item, i) in signals" :key="i" xs12>
         <!-- <p v-if="i == 0">{{item.date}}</p>
         <p
@@ -32,7 +32,10 @@ export default {
   },
   mounted() {
     this.fetchSignals();
-    this.scrollToBot();
+    // this.scrollToBot();
+    eventBus.$on("scroll_to_bottom", data => {
+      if (data) this.scrollToBot();
+    });
   },
   methods: {
     fetchSignals() {
@@ -48,12 +51,15 @@ export default {
         );
         eventBus.$emit("signal_counter", true);
         this.signals = temp;
+        setTimeout(function() {
+          this.scrollToBot();
+        }, 500);
       });
     },
     scrollToBot() {
       this.elem = document.getElementById("scrolled-content");
       this.container = document.getElementById("scroll-target");
-      this.container.scrollTop = this.elem.offsetHeight + 9999;
+      this.container.scrollTop = this.elem.offsetHeight + 99999;
     }
   },
   computed: {
@@ -64,6 +70,9 @@ export default {
         easing: "easeInOutCubic"
       };
     }
+  },
+  updated() {
+    
   }
 };
 </script>

@@ -5,9 +5,9 @@
         <v-card class="elevation-12">
           <div style="background-color:#000">
             <v-layout justify-center>
-              <v-avatar :size="150">
-                <img :src="require('../../assets/lion.png')">
-              </v-avatar>
+               <v-layout justify-center>
+              <v-img :src="require('../../assets/lion.png')"  height="125" contain></v-img>
+            </v-layout>
             </v-layout>
           </div>
           <v-layout justify-center class="mt-2">
@@ -31,7 +31,7 @@
                 v-model="email"
                 required
                 :rules="emailRules"
-                 @click.native="removeErrorText"
+                @click.native="removeErrorText"
               ></v-text-field>
               <v-text-field
                 color="accent"
@@ -42,7 +42,7 @@
                 v-model="password"
                 required
                 :rules="passwordRules"
-                 @click.native="removeErrorText"
+                @click.native="removeErrorText"
               ></v-text-field>
             </v-card-text>
             <v-card-actions>
@@ -51,6 +51,12 @@
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
+          <v-layout justify-center>
+            <p class="ma-2">
+              Don't have an account
+              <span class="accent--text" style="cursor:pointer" @click="goToRegister">Sign up</span>
+            </p>
+          </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
@@ -88,8 +94,11 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          this.errorText = "Invalid Email or Password!!"
-        } );
+          this.errorText = "Invalid Email or Password!!";
+        });
+    },
+    goToRegister(){
+        this.$router.push('/register');
     },
     removeErrorText() {
       this.errorText = "";

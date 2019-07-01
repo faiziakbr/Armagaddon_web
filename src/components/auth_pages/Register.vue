@@ -13,11 +13,18 @@
       </form>-->
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
-          <v-toolbar dark color="primary">
+          <!-- <v-toolbar dark color="primary">
             <v-toolbar-title>Register</v-toolbar-title>
             <v-spacer></v-spacer>
-          </v-toolbar>
-
+          </v-toolbar>-->
+          <div style="background-color:#000">
+            <v-layout justify-center>
+              <v-img :src="require('../../assets/lion.png')"  height="125" contain></v-img>
+            </v-layout>
+          </div>
+          <v-layout justify-center class="mt-2">
+            <h3 class="accent--text headline">Register</h3>
+          </v-layout>
           <p
             :hidden="errorText.length <= 0"
             class="ma-2"
@@ -105,6 +112,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="accent" @click="register" :disabled="(!valid)">Register</v-btn>
+              <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -125,11 +133,11 @@ export default {
       checkReferral: false,
       referralValid: false,
       icon: "",
-      firstName: "fdsfd",
-      lastName: "fdsfds",
-      email: "test@test.com",
-      password: "123456",
-      confirmPassword: "1234567",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       referralCode: "",
       referralId: -1,
       firstNameRules: [v => !!v || "First name is required"],
@@ -218,7 +226,7 @@ export default {
         })
         .catch(err => {
           console.log("ERROR: " + err);
-          this.errorText = "Invalid Email or Password!";
+          this.errorText = "Email already exists!";
         });
     },
     removeErrorText() {

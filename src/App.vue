@@ -12,7 +12,7 @@
     </v-content>
 
     <div
-      style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:2px #f3bf2e solid; border-radius:10px"
+      style="width:300px; height:400px; position:fixed; bottom: 0px; right:0px; z-index: 9999; border:4px #f3bf2e solid; border-radius:5px"
       v-if="isLoggedIn  && $vuetify.breakpoint.mdAndUp"
       v-show="!showSignals"
     >
@@ -48,19 +48,6 @@
         </v-badge>
       </v-btn>
     </div>
-
-    <!-- </v-layout> -->
-
-    <!-- <div id="app">
-      <div id="nav">
-        <router-link to="/">Home</router-link>|
-        <router-link to="/about">About</router-link>
-        <span v-if="isLoggedIn">
-          <a @click="logout">Logout</a>
-        </span>
-      </div>
-      <router-view/>
-    </div>-->
     <app-loader :showDialog="loading"></app-loader>
   </v-app>
 </template>
@@ -109,6 +96,13 @@ export default {
     },
     toggleSignals() {
       this.showSignals = !this.showSignals;
+      if (this.showSignals) {
+        this.count = 0;
+      } else {
+        setTimeout(function() {
+          eventBus.$emit("scroll_to_bottom", true);
+        }, 500);
+      }
     }
   },
   computed: {

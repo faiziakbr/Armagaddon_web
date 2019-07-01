@@ -54,15 +54,16 @@
       :temporary="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm || $vuetify.breakpoint.md"
     >
       <v-img :aspect-ratio="10/9" :src="require('../assets/background_menu.png')">
-        <v-layout column align-center  pa-4>
+        <v-layout column align-center pa-4>
           <v-avatar :size="120" color="grey lighten-4">
-            <img :src="image" @error="imageLoadError" alt="avatar">
+            <img :src="image" @error="imageLoadError" alt="avatar" />
           </v-avatar>
           <v-card-title>
             <div>
               <h3 class="headline mb-0 accent--text">{{user.first_name}} {{user.last_name}}</h3>
             </div>
           </v-card-title>
+          <v-btn round color="accent primary--text" @click="openEditDialog">Account</v-btn>
         </v-layout>
       </v-img>
       <!-- <v-container>
@@ -144,26 +145,32 @@ export default {
     };
   },
   mounted() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.image =
-      "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
-      this.user.profile_pic_url;
-    axios({
-      method: "GET",
-      url:
-        "http://www.vacayplanet.com/ArmageddonApi/public/api/notifications/" +
-        this.user.id
-    })
-      .then(response => {
-        this.notifications = response.data;
-        this.loading = false;
-      })
-      .catch(error => {
-        console.log(error);
-        this.loading = false;
-      });
+    this.populateUserInfo();
+    eventBus.$on("profile_updated", data => {
+      this.populateUserInfo();
+    });
   },
   methods: {
+    populateUserInfo() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.image =
+        "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
+        this.user.profile_pic_url;
+      axios({
+        method: "GET",
+        url:
+          "http://www.vacayplanet.com/ArmageddonApi/public/api/notifications/" +
+          this.user.id
+      })
+        .then(response => {
+          this.notifications = response.data;
+          this.loading = false;
+        })
+        .catch(error => {
+          console.log(error);
+          this.loading = false;
+        });
+    },
     menuClick(value) {
       if (value.id == 1) this.$router.push("signals");
       if (value.id == 2) this.$router.push("referrals");

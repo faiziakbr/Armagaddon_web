@@ -64,6 +64,7 @@
         </v-card-actions>
       </v-form>
     </v-card>
+    <app-loader :showDialog="loading"></app-loader>
   </v-dialog>
 </template>
 
@@ -71,10 +72,16 @@
 import person from "../../assets/person.png";
 import axios from "axios";
 import { eventBus } from "../../main.js";
+import MyLoader from "../custom_components/MyLoader.vue";
+import { constants } from 'crypto';
 
 export default {
+  components:{
+    appLoader: MyLoader
+  },
   data() {
     return {
+      loading:false,
       dialog: false,
       valid: false,
       user: null,
@@ -113,11 +120,13 @@ export default {
         var binaryData = e.target.result;
         //Converting Binary Data to base 64
         this.base64Image = window.btoa(binaryData);
+        this.image = "data:image/jpeg;base64,"+this.base64Image;
       };
       reader.readAsBinaryString(f);
-      //******************************************************* */
+      /********************************************************/
     },
     submit() {
+      this.loading = true;
       let _body = {
         profile_pic: this.base64Image,
         customer_id: this.user.id,
@@ -133,19 +142,23 @@ export default {
           _body,
           {
             onUploadProgress: uploadEvent => {
-              console.log(uploadEvent.loaded);
-              console.log("total: " + uploadEvent.total);
-              console.log(
-                "Upload event: " +
-                  Math.round((uploadEvent.loaded / uploadEvent.total) * 100)
-              );
+              // console.log(uploadEvent.loaded);
+              // console.log("total: " + uploadEvent.total);
+              // console.log(
+              //   "Upload event: " +
+              //     Math.round((uploadEvent.loaded / uploadEvent.total) * 100)
+              // );
             }
           }
         )
         .then(resp => {
+          this.loading = false;
           localStorage.setItem("user", JSON.stringify(resp.data.customer));
+          this.dialog = false;
+          eventBus.$emit("profile_updated", true);
         })
         .catch(error => {
+          this.loading = false;
           console.log(error);
         });
     },

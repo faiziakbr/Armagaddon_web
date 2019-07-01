@@ -22,7 +22,7 @@
             <v-card-text>
               <input type="hidden" name="merchant_id" value="10012785">
               <input type="hidden" name="merchant_key" value="3vnc7o0v1771c">
-              <input type="hidden" name="return_url" value="https://forex-arma.herokuapp.com/">
+              <input type="hidden" name="return_url" value="http://forex-arma.herokuapp.com/">
               <input type="hidden" name="cancel_url" value="https://www.yahoo.com">
               <input type="hidden" name="notify_url" value="http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe">
               <input type="hidden" name="custom_int1" :value="user_id">
