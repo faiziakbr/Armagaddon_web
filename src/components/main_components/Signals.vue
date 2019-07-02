@@ -45,10 +45,13 @@ export default {
         );
         this.signals = temp;
         this.scrollToBottom();
+        // setTimeout(function() {
+        //   this.scrollToBottom();
+        // }, 500);
       });
     },
     scrollToBottom() {
-      this.$vuetify.goTo(9999, this.options);
+      this.$vuetify.goTo(9999999, this.options);
     }
   },
   computed: {

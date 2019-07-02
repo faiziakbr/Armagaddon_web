@@ -49,8 +49,12 @@ export default {
   },
   mounted(){
     let user = JSON.parse(localStorage.getItem("user"));
+    if(user != null){
     this.user_id = user.id;
     console.log(this.user_id);
+    }else{
+      this.$router.push('/login');
+    }
   }
 };
 </script>
