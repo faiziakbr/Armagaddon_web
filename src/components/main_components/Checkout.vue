@@ -20,14 +20,18 @@
           <v-card-text class="subheading">Please make payment of 400.00 ZAR to use services.</v-card-text>
           <form action="https://sandbox.payfast.co.za/eng/process" method="POST">
             <v-card-text>
-              <input type="hidden" name="merchant_id" value="10012785">
-              <input type="hidden" name="merchant_key" value="3vnc7o0v1771c">
-              <input type="hidden" name="return_url" value="http://forex-arma.herokuapp.com/">
-              <input type="hidden" name="cancel_url" value="https://www.yahoo.com">
-              <input type="hidden" name="notify_url" value="http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe">
-              <input type="hidden" name="custom_int1" :value="user_id">
-              <input type="hidden" name="amount" value="400">
-              <input type="hidden" name="item_name" value="subscription">
+              <input type="hidden" name="merchant_id" value="10012785" />
+              <input type="hidden" name="merchant_key" value="3vnc7o0v1771c" />
+              <input type="hidden" name="return_url" value="http://forex-arma.herokuapp.com/" />
+              <input type="hidden" name="cancel_url" value="https://www.yahoo.com" />
+              <input
+                type="hidden"
+                name="notify_url"
+                value="http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe"
+              />
+              <input type="hidden" name="custom_int1" :value="user_id" />
+              <input type="hidden" name="amount" value="400" />
+              <input type="hidden" name="item_name" value="subscription" />
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -42,18 +46,17 @@
 
 <script>
 export default {
-   data() {
+  data() {
     return {
       user_id: -1
     };
   },
-  mounted(){
+  mounted() {
     let user = JSON.parse(localStorage.getItem("user"));
-    if(user != null){
-    this.user_id = user.id;
-    console.log(this.user_id);
-    }else{
-      this.$router.push('/login');
+    if (user != null) {
+      this.user_id = user.id;
+    } else {
+      this.$router.push("/login");
     }
   }
 };

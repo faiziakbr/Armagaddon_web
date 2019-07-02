@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     this.fetchSignals();
-    // this.scrollToBot();
     eventBus.$on("scroll_to_bottom", data => {
       if (data) this.scrollToBot();
     });
@@ -52,7 +51,9 @@ export default {
         eventBus.$emit("signal_counter", true);
         this.signals = temp;
         setTimeout(function() {
-          this.scrollToBot();
+          this.elem = document.getElementById("scrolled-content");
+          this.container = document.getElementById("scroll-target");
+          this.container.scrollTop = this.elem.offsetHeight + 99999;
         }, 500);
       });
     },
@@ -70,9 +71,6 @@ export default {
         easing: "easeInOutCubic"
       };
     }
-  },
-  updated() {
-    
   }
 };
 </script>

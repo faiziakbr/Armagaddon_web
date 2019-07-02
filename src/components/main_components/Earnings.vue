@@ -6,20 +6,20 @@
         <h3 class="headline text-xs-center" style="font-weight:bold;">Earnings</h3>
       </v-flex>
       <v-flex xs12 sm4>
-      <v-layout align-center v-if="$vuetify.breakpoint.xs" justify-center>
-        <button
-          style="text-align:center"
-          class="title accent--text"
-          @click="withdrawDialog = true"
-        >Withdraw</button>
-      </v-layout>
-      <v-layout align-center v-if="$vuetify.breakpoint.smAndUp" justify-end>
-        <button
-          style="text-align:center"
-          class="title accent--text"
-          @click="withdrawDialog = true"
-        >Withdraw</button>
-      </v-layout>
+        <v-layout align-center v-if="$vuetify.breakpoint.xs" justify-center>
+          <button
+            style="text-align:center"
+            class="title accent--text"
+            @click="withdrawDialog = true"
+          >Withdraw</button>
+        </v-layout>
+        <v-layout align-center v-if="$vuetify.breakpoint.smAndUp" justify-end>
+          <button
+            style="text-align:center"
+            class="title accent--text"
+            @click="withdrawDialog = true"
+          >Withdraw</button>
+        </v-layout>
       </v-flex>
     </v-layout>
     <v-layout column>
@@ -59,10 +59,7 @@
         </v-flex>
       </v-layout>
       <app-loader :showDialog="loading"></app-loader>
-      <withdraw-dialog
-        @clicked="refreshEarnings"
-        :showDialog="withdrawDialog"
-      ></withdraw-dialog>
+      <withdraw-dialog @clicked="refreshEarnings" :showDialog="withdrawDialog"></withdraw-dialog>
     </v-layout>
   </div>
 </template>
@@ -93,7 +90,6 @@ export default {
   },
   methods: {
     refreshEarnings(value) {
-      console.log("CALLED: " + value);
       this.loadEarnings();
       this.withdrawDialog = false;
     },
@@ -106,7 +102,8 @@ export default {
           user.id
       })
         .then(response => {
-          this.earnings = response.data.earnings;
+          if (response.data.earnings != null)
+            this.earnings = response.data.earnings;
           this.transactions = response.data.transactions;
           this.loading = false;
           let balance = this.earnings.total_earned - this.earnings.withdrawn;
