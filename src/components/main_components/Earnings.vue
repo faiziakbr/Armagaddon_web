@@ -70,6 +70,7 @@ import ItemTransaction from "../custom_components/ItemTransaction.vue";
 import MyLoader from "../custom_components/MyLoader.vue";
 import WithdrawDialog from "../custom_components/DialogWithdraw.vue";
 import { eventBus } from "../../main.js";
+import moment from "moment";
 
 export default {
   components: {
@@ -105,6 +106,11 @@ export default {
           if (response.data.earnings != null)
             this.earnings = response.data.earnings;
           this.transactions = response.data.transactions;
+          this.transactions.sort(
+            (a, b) =>
+              new Date(moment(b.created_at).format("MM/DD/YYYY hh:mm:ss")) -
+              new Date(moment(a.created_at).format("MM/DD/YYYY hh:mm:ss"))
+          );
           this.loading = false;
           let balance = this.earnings.total_earned - this.earnings.withdrawn;
           eventBus.$emit("balance", balance);
