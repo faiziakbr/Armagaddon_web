@@ -20,7 +20,7 @@
         <!-- <v-radio-group v-model="radios" :mandatory="true" row @click="clicked">
           <v-radio color="accent" label="Bank" :value="0"></v-radio>
           <v-radio color="accent" label="Paypal" :value="1"></v-radio>
-        </v-radio-group> --> -->
+        </v-radio-group>  -->
         <v-switch
           v-model="amountSwitch"
           :label="amountSwitch ? 'Paypal' : 'Bank'"
