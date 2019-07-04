@@ -28,10 +28,10 @@
           <v-card class="mx-2 my-2">
             <div class="pa-2">
               <p class="grey--text subheading">Personal Balance</p>
-              <h3
-                class="display-2"
+              <h4
+                class="display-1"
                 style="text-align:center"
-              >${{earnings.total_earned - earnings.withdrawn}}</h3>
+              >${{earnings.total_earned - earnings.withdrawn}}</h4>
             </div>
           </v-card>
         </v-flex>
@@ -39,7 +39,7 @@
           <v-card class="mx-2 my-2">
             <div class="pa-2">
               <p class="grey--text subheading">Total Earned</p>
-              <h3 class="display-2" style="text-align:center">${{earnings.total_earned}}</h3>
+              <h4 class="display-1" style="text-align:center">${{earnings.total_earned}}</h4>
             </div>
           </v-card>
         </v-flex>
@@ -47,7 +47,7 @@
           <v-card class="mx-2 my-2">
             <div class="pa-2">
               <p class="grey--text subheading">Withdrawn</p>
-              <h3 class="display-2" style="text-align:center">${{earnings.withdrawn}}</h3>
+              <h4 class="display-1" style="text-align:center">${{earnings.withdrawn}}</h4>
             </div>
           </v-card>
         </v-flex>

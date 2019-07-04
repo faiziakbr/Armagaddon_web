@@ -16,10 +16,11 @@
       >{{errorText}}</p>
       <v-form v-model="validAmount">
         <v-text-field v-model="amount" type="number" label="Amount" :rules="amountRules" required></v-text-field>
+        <!-- <v-checkbox v-model="checkbox" :label="`Checkbox 1: ${checkbox.toString()}`"></!-->
         <!-- <v-radio-group v-model="radios" :mandatory="true" row @click="clicked">
           <v-radio color="accent" label="Bank" :value="0"></v-radio>
           <v-radio color="accent" label="Paypal" :value="1"></v-radio>
-        </v-radio-group>-->
+        </v-radio-group>  -->
         <v-switch
           v-model="amountSwitch"
           :label="amountSwitch ? 'Paypal' : 'Bank'"
@@ -46,6 +47,7 @@ export default {
   },
   data() {
     return {
+      checkbox: true,
       validAmount: false,
       dialog: this.showDialog,
       balance: 0,
