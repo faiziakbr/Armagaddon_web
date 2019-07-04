@@ -16,17 +16,41 @@
       >{{errorText}}</p>
       <v-form v-model="validAmount">
         <v-text-field v-model="amount" type="number" label="Amount" :rules="amountRules" required></v-text-field>
-        <!-- <v-checkbox v-model="checkbox" :label="`Checkbox 1: ${checkbox.toString()}`"></!-->
-        <!-- <v-radio-group v-model="radios" :mandatory="true" row @click="clicked">
-          <v-radio color="accent" label="Bank" :value="0"></v-radio>
-          <v-radio color="accent" label="Paypal" :value="1"></v-radio>
-        </v-radio-group>  -->
-        <v-switch
+        <v-layout row>
+          <v-flex>
+            <label class="container">
+              Bank
+              <input
+                v-model="radios"
+                value="bank"
+                type="radio"
+                checked="checked"
+                name="radio"
+                @change="selectedMethods"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </v-flex>
+          <v-flex>
+            <label class="container">
+              Paypal
+              <input
+                v-model="radios"
+                value="paypal"
+                type="radio"
+                name="radio"
+                @change="selectedMethods"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </v-flex>
+        </v-layout>
+        <!-- <v-switch
           v-model="amountSwitch"
           :label="amountSwitch ? 'Paypal' : 'Bank'"
           color="accent"
           @change="selectedMethods"
-        ></v-switch>
+        ></v-switch>-->
         <p class="body-2">{{type}}</p>
         <v-btn :disabled="!validAmount" @click="withdrawAmount">Submit</v-btn>
       </v-form>
@@ -54,6 +78,7 @@ export default {
       loading: false,
       type: "",
       source: "bank",
+      radios: "bank",
       user: null,
       errorText: "",
       amount: "",
@@ -70,7 +95,6 @@ export default {
 
     eventBus.$on("balance", data => {
       this.balance = data;
-      console.log("balance: " + this.balance);
     });
   },
   methods: {
@@ -85,15 +109,15 @@ export default {
       this.showDialog = false;
     },
     selectedMethods() {
-      if (this.amountSwitch) {
+      if (this.radios == "bank") {
         if (this.user.bank_detail != null) {
           this.source = "bank";
-          this.type = this.user.bank_detail.account_number;
+          this.type = "Account number: " + this.user.bank_detail.account_number;
         } else this.type = "No Bank found!";
-      } else {
+      } else if (this.radios == "paypal") {
         if (this.user.paypal_email != null) {
           this.source = "paypal";
-          this.type = this.user.paypal_email;
+          this.type = "Paypal Email: " + this.user.paypal_email;
         } else this.type = "No Paypal email!";
       }
     },
@@ -130,3 +154,68 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #f3bf2e;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+</style>
+
