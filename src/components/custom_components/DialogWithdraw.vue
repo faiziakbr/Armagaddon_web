@@ -138,7 +138,7 @@ export default {
         payment_method: this.source
       };
       axios({
-        url: "http://www.vacayplanet.com/ArmageddonApi/public/api/withdraw",
+        url: "http://www.forexamg.com/ArmageddonApi/public/api/withdraw",
         data: _body,
         method: "POST"
       })

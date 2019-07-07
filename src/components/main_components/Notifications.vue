@@ -28,7 +28,7 @@ export default {
     axios({
       method: "GET",
       url:
-        "http://www.vacayplanet.com/ArmageddonApi/public/api/notifications/" +
+        "http://www.forexamg.com/ArmageddonApi/public/api/notifications/" +
         user.id
     })
       .then(response => {

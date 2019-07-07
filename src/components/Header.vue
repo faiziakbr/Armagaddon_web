@@ -31,12 +31,15 @@
             <v-icon color="accent">notifications</v-icon>
           </v-btn>
         </template>
-        <v-list style="max-height: 300px;width:350px;">
+        <v-list v-if="notifications.length > 0" style="max-height: 300px;width:350px;">
           <v-flex v-for="(item, index) in notifications" :key="index">
             <ItemNotification :itemNotification="item"></ItemNotification>
             <v-divider :key="index"></v-divider>
           </v-flex>
         </v-list>
+        <div v-else style="height: 300px;width:350px;background-color:white; ">
+          <p style="text-align:center;margin:auto; line-height:20" class="red--text">No Notifications!</p>
+        </div>
       </v-menu>
 
       <v-btn v-if="$vuetify.breakpoint.lgAndUp" icon @click="logout">
@@ -154,12 +157,12 @@ export default {
     populateUserInfo() {
       this.user = JSON.parse(localStorage.getItem("user"));
       this.image =
-        "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
+        "http://www.forexamg.com/ArmageddonApi/public/appImages/" +
         this.user.profile_pic_url;
       axios({
         method: "GET",
         url:
-          "http://www.vacayplanet.com/ArmageddonApi/public/api/notifications/" +
+          "http://www.forexamg.com/ArmageddonApi/public/api/notifications/" +
           this.user.id
       })
         .then(response => {

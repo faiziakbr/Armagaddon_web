@@ -62,7 +62,7 @@ export default {
   },
   mounted() {
     this.image =
-      "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
+      "http://www.forexamg.com/ArmageddonApi/public/appImages/" +
       this.referral.customer.profile_pic_url;
   },
   methods: {

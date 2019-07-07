@@ -27,7 +27,7 @@
               <input
                 type="hidden"
                 name="notify_url"
-                value="http://www.vacayplanet.com/ArmageddonApi/public/api/subscribe"
+                value="http://www.forexamg.com/ArmageddonApi/public/api/subscribe"
               />
               <input type="hidden" name="custom_int1" :value="user_id" />
               <input type="hidden" name="amount" value="400" />

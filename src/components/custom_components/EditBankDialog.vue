@@ -70,7 +70,7 @@ export default {
         swift_code: this.swiftCode
       };
       axios({
-        url: "http://www.vacayplanet.com/ArmageddonApi/public/api/updateBank",
+        url: "http://www.forexamg.com/ArmageddonApi/public/api/updateBank",
         data: _body,
         method: "POST"
       })

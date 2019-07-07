@@ -3,12 +3,15 @@
     <v-layout justify-center>
       <h3 class="headline" style="font-weight:bold">Referrals</h3>
     </v-layout>
-    <v-layout row wrap>
+    <v-layout row wrap v-if="referrals.length > 0">
       <v-flex v-for="item in referrals" :key="item.id" xs12 sm4 md3 lg3 xl2 class="mb-3 py-2 px-2">
         <item-referral style="height: 100%" :itemReferral="item"></item-referral>
       </v-flex>
-      <app-loader :showDialog="loading"></app-loader>
     </v-layout>
+    <v-layout v-else justify-center>
+      <p v-if="!loading" class="title red--text">No Referrals!</p>
+    </v-layout>
+    <app-loader :showDialog="loading"></app-loader>
   </div>
 </template>
 
@@ -33,7 +36,7 @@ export default {
     axios({
       method: "GET",
       url:
-        "http://www.vacayplanet.com/ArmageddonApi/public/api/referrals/" +
+        "http://www.forexamg.com/ArmageddonApi/public/api/referrals/" +
         userId.id
     })
       .then(response => {

@@ -99,7 +99,7 @@ export default {
       axios({
         method: "GET",
         url:
-          "http://www.vacayplanet.com/ArmageddonApi/public/api/earnings/" +
+          "http://www.forexamg.com/ArmageddonApi/public/api/earnings/" +
           user.id
       })
         .then(response => {

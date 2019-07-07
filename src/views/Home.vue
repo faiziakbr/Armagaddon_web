@@ -74,7 +74,7 @@ export default {
       axios({
         method: "GET",
         url:
-          "http://www.vacayplanet.com/ArmageddonApi/public/api/referrals/" +
+          "http://www.forexamg.com/ArmageddonApi/public/api/referrals/" +
           userId.id
       })
         .then(response => {
@@ -91,7 +91,7 @@ export default {
       axios({
         method: "GET",
         url:
-          "http://www.vacayplanet.com/ArmageddonApi/public/api/earnings/" +
+          "http://www.forexamg.com/ArmageddonApi/public/api/earnings/" +
           user.id
       })
         .then(response => {
@@ -109,7 +109,7 @@ export default {
       let user = JSON.parse(localStorage.getItem("user"));
       axios({
         method: "POST",
-        url: "http://www.vacayplanet.com/ArmageddonApi/public/api/daysLeft",
+        url: "http://www.forexamg.com/ArmageddonApi/public/api/daysLeft",
         data: { customer_id: user.id }
       })
         .then(response => {

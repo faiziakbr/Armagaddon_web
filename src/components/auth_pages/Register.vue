@@ -162,7 +162,7 @@ export default {
         this.checkReferral = true;
         axios
           .get(
-            "http://www.vacayplanet.com/ArmageddonApi/public/api/verifyReferral/" +
+            "http://www.forexamg.com/ArmageddonApi/public/api/verifyReferral/" +
               this.referralCode
           )
           .then(response => {

@@ -61,7 +61,7 @@ export default {
         paypal_email: this.paypalEmail
       };
       axios({
-        url: "http://www.vacayplanet.com/ArmageddonApi/public/api/updatePaypal",
+        url: "http://www.forexamg.com/ArmageddonApi/public/api/updatePaypal",
         data: _body,
         method: "POST"
       })

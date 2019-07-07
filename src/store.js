@@ -36,7 +36,7 @@ export default new Vuex.Store({
         commit("auth_request");
 
         axios({
-          url: "http://www.vacayplanet.com/ArmageddonApi/public/api/login",
+          url: "http://www.forexamg.com/ArmageddonApi/public/api/login",
           data: user,
           method: "POST",
           onUploadProgress: uploadEvent => {
@@ -75,7 +75,7 @@ export default new Vuex.Store({
         console.log(user);
         commit("auth_request");
         axios({
-          url: "http://www.vacayplanet.com/ArmageddonApi/public/api/register",
+          url: "http://www.forexamg.com/ArmageddonApi/public/api/register",
           data: user,
           method: "POST"
         })

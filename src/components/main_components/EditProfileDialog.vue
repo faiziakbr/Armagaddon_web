@@ -108,7 +108,7 @@ export default {
     this.city = this.user.city;
     this.country = this.user.country;
     this.image =
-      "http://www.vacayplanet.com/ArmageddonApi/public/appImages/" +
+      "http://www.forexamg.com/ArmageddonApi/public/appImages/" +
       this.user.profile_pic_url;
   },
   methods: {
@@ -138,7 +138,7 @@ export default {
 
       axios
         .post(
-          "http://www.vacayplanet.com/ArmageddonApi/public/api/updateProfile",
+          "http://www.forexamg.com/ArmageddonApi/public/api/updateProfile",
           _body,
           {
             onUploadProgress: uploadEvent => {
