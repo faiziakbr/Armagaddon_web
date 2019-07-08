@@ -38,7 +38,10 @@
           </v-flex>
         </v-list>
         <div v-else style="height: 300px;width:350px;background-color:white; ">
-          <p style="text-align:center;margin:auto; line-height:20" class="red--text">No Notifications!</p>
+          <p
+            style="text-align:center;margin:auto; line-height:20"
+            class="red--text"
+          >No Notifications!</p>
         </div>
       </v-menu>
 

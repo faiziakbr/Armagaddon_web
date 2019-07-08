@@ -115,6 +115,12 @@
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
+          <v-layout justify-center>
+            <p class="ma-2">
+              Already have an account?
+              <span class="accent--text" style="cursor:pointer" @click="goToLogin">Login</span>
+            </p>
+          </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
@@ -204,7 +210,6 @@ export default {
           password_confirmation: this.confirmPassword
         };
       } else if (this.referralValid) {
-        console.log("Running this code");
         _body = {
           first_name: this.firstName,
           last_name: this.lastName,
@@ -228,6 +233,9 @@ export default {
           console.log("ERROR: " + err);
           this.errorText = "Email already exists!";
         });
+    },
+    goToLogin(){
+      this.$router.push('/login');
     },
     removeErrorText() {
       this.errorText = "";

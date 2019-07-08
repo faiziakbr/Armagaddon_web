@@ -1,15 +1,10 @@
 <template>
   <div style="padding:10px; background-color:#fff" id="scrolled-content">
-    <!-- <button @click="scrollToBot">test</button> -->
     <v-list style="height:330px" class="scroll-y" id="scroll-target">
-      <v-flex v-for="(item, i) in signals" :key="i" xs12>
-        <!-- <p v-if="i == 0">{{item.date}}</p>
-        <p
-          v-else-if="new Date(moment(signals[--i].date).format('MM/DD/YYYY')) != new Date(moment(item.date).format('MM/DD/YYYY'))"
-        >{{item.date}}</p>-->
+      <div v-for="(item, i) in signals" :key="i" xs12  class="pa-2">
         <item-signal v-if="i == 0" :signal="item"></item-signal>
         <item-signal v-else :signal="item" :pDate="signals[--i].date"></item-signal>
-      </v-flex>
+      </div>
     </v-list>
   </div>
 </template>
@@ -60,7 +55,7 @@ export default {
     scrollToBot() {
       this.elem = document.getElementById("scrolled-content");
       this.container = document.getElementById("scroll-target");
-      this.container.scrollTop = this.elem.offsetHeight + 99999;
+      this.container.scrollTop = this.elem.offsetHeight + 9999999;
     }
   },
   computed: {
